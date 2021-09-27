@@ -15,13 +15,13 @@ use PayAccept\LaravelPaychain\Models\Payment;
 
 
 
-$factory->define(PayAccept\LaravelPaychain\Models\Payment::class, function (Faker\Generator $faker) {
-    return [
-        'address' => function () {
-            return resolve("paychain")->getnewaddress();
-        },
-        'paid' => 0,
-        'amount' => $faker->randomFloat(4, 0.0001, 1.9999),
-        'confirmations' => 0,
-    ];
-});
+//$factory->define(PayAccept\LaravelPaychain\Models\Payment::class, function (Faker\Generator $faker) {
+//    return [
+//        'address' => function () {
+//            return resolve("paychain")->getnewaddress();
+//        },
+//        'paid' => 0,
+//        'amount' => $faker->randomFloat(4, 0.0001, 1.9999),
+//        'confirmations' => 0,
+//    ];
+//});
