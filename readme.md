@@ -24,7 +24,7 @@ cd first-bitcoin-app
 ```
 Install package via composer:
 ```
-composer require moki74/laravel-btc
+composer require payaccept/laravel-paychain
 ```
 After installation publish package with artisan command :
 ```
