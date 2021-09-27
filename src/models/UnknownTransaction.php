@@ -1,6 +1,6 @@
 <?php
 
-namespace moki74\LaravelBtc\Models;
+namespace PayAccept\LaravelPaychain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

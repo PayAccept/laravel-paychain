@@ -6,21 +6,23 @@ Package for receive payments via PayChain
 
 There is lot of docs about installing Laravel, not covered here ...
 
-**Running Bitcoind server**
+**Running Paychain server**
 
 You can find docs here :
 https://bitcoin.org/en/full-node#what-is-a-full-node
+
+The Paychain node is based on bitcoin-core-0.16
 
 ## Installation
 
 First, make laravel application :
 ```
-laravel new first-bitcoin-app
+laravel new first-paychain-app
 ```
 
 then  cd in first-bitcoin-app:
 ```
-cd first-bitcoin-app
+cd first-paychain-app
 ```
 Install package via composer:
 ```
@@ -30,17 +32,17 @@ After installation publish package with artisan command :
 ```
 php artisan vendor:publish
 ```
-and choose by tag **bitcoin**.
+and choose by tag **paychain**.
 
-In config folder you'll find new config file - **bitcoind.php**
+In config folder you'll find new config file - **paychain.php**
 You can change values in file directly, but most common way is to put values in Laravel **.env** file, like this :
 ```
 // Put this at the end of .env file
-BITCOIND_HOST=127.0.0.1 // change this with host of Bitcoin server
-BITCOIND_PORT=8332
-BITCOIND_USER=rpcusername // change this with rpc user name from bitcoin config
-BITCOIND_PASSWORD=rpcuserpassword  //change this with rpc passord from bitcoin config
-BITCOIND_MIN_CONFIRMATIONS=3  // This is minimal number of confirmations - do some google about bitcoin confirmations if you not shure about this value
+PAYCHAIN_HOST=127.0.0.1 // change this with host of Paychain server
+PAYCHAIN_PORT=8332
+PAYCHAIN_USER=rpcusername // change this with rpc user name from bitcoin config
+PAYCHAIN_PASSWORD=rpcuserpassword  //change this with rpc passord from bitcoin config
+PAYCHAIN_MIN_CONFIRMATIONS=3  // This is minimal number of confirmations - do some google about bitcoin confirmations if you not shure about this value
 
 ```
 
@@ -53,28 +55,28 @@ php artisan migrate
 ## Usage
 There are two main objects in package :
 
-**1. moki74\LaravelBtc\Bitcoind** - this is a wrapper for RPC commands to bitcoin server.
+**1. PayAccept\LaravelPaychain\Paychain** - this is a wrapper for RPC commands to bitcoin server.
 You can make this object via Laravel **app** helper function like this:
 ```
-$btc = app("bitcoind");
+$paychain = app("paychain");
 // or
-$btc = app("moki74\LaravelBtc\Bitcoind");
+$paychain = app("PayAccept\LaravelPaychain\Paychain");
 ```
 
 and then call RPC method on object :
 
 ```
-$bitcoinaddress = $btc->getnewaddress();
+$bitcoinaddress = $paychain->getnewaddress();
 // You can call any RPC method
-// see this url : https://en.bitcoin.it/wiki/Original_Bitcoin_client/API_calls_list
+// see this url : https://en.bitcoin.it/wiki/Original_Paychain_client/API_calls_list
 ```
 You can  use just this object for simpler projects  ...
 
-**2. moki74\LaravelBtc\Models\Payment** - this object is model for payment with Bitcoin , creates for you new Bitcoin address, amount, track if customer made payment, store it to database ...
+**2. PayAccept\LaravelPaychain\Models\Payment** - this object is model for payment with Paychain , creates for you new Paychain address, amount, track if customer made payment, store it to database ...
 
 Again, use **app** helper function like this:
 ```
-$payment = app("moki74\LaravelBtc\Models\Payment");
+$payment = app("PayAccept\LaravelPaychain\Models\Payment");
 //or
 $payment = app("bitcoinPayment");
 
@@ -88,7 +90,7 @@ This object contains following properties:
 
 **address** - bitcoin address (this is automatically generated for you when you call $payment = app("bitcoinPayment"))
 
-**paid** - this is indicator if user is made payment and number of confirmations on block chain is ok (there is configuration parameter for minimum number of confirmations BITCOIND_MIN_CONFIRMATIONS in .env file or directly in bitcoind.conf file in config folder)
+**paid** - this is indicator if user is made payment and number of confirmations on block chain is ok (there is configuration parameter for minimum number of confirmations PAYCHAIN_MIN_CONFIRMATIONS in .env file or directly in paychain.conf file in config folder)
 
 **amount** - price that user need to pay
 
@@ -112,7 +114,7 @@ $payment->save();
 
 
 #### Checking payments and confirmations:
-Package contains class moki74\LaravelBtc\Commands\CheckPayment.
+Package contains class PayAccept\LaravelPaychain\Commands\CheckPayment.
 This is Laravel Command and you can call it via php artisan :
 ```
 php artisan bitcoin:checkpayment
@@ -139,7 +141,7 @@ Those are :
 **UnknownTransactionListener.php**
 
 Each of these Listeners correspond to Events which are placed in vendor folder of project :
-**vendor\moki74\laravel-btc\src\Events**
+**vendor\payaccept\laravel-paychain\src\Events**
 
 **ConfirmedPaymentEvent.php**
 
@@ -156,15 +158,15 @@ protected $listen = [
             'App\Listeners\EventListener',
         ],
 
-        'moki74\LaravelBtc\Events\ConfirmedPaymentEvent' => [
+        'PayAccept\LaravelPaychain\Events\ConfirmedPaymentEvent' => [
             'App\Listeners\ConfirmedPaymentListener',
         ],
 
-        'moki74\LaravelBtc\Events\UnconfirmedPaymentEvent' => [
+        'PayAccept\LaravelPaychain\Events\UnconfirmedPaymentEvent' => [
             'App\Listeners\UnconfirmedPaymentListener',
         ],
 
-        'moki74\LaravelBtc\Events\UnknownTransactionEvent' => [
+        'PayAccept\LaravelPaychain\Events\UnknownTransactionEvent' => [
             'App\Listeners\UnknownTransactionListener',
         ],
 
@@ -172,7 +174,7 @@ protected $listen = [
 ```
 In each of these class there is handle method, where you can put logic for actions that need to be done when event is fired (DB insert-update, sending mails ...).
 
-Below is example of ConfimedPaymentListener,  event is generated when number of confirmations is equal to BITCOIND_MIN_CONFIRMATIONS in .env file and we can be sure that payment is ok.
+Below is example of ConfimedPaymentListener,  event is generated when number of confirmations is equal to PAYCHAIN_MIN_CONFIRMATIONS in .env file and we can be sure that payment is ok.
 ```
     public function handle(ConfirmedPaymentEvent $event)
     {
@@ -183,19 +185,19 @@ Below is example of ConfimedPaymentListener,  event is generated when number of 
 
 ### Events
 
-1. **moki74\LaravelBtc\Events\UnconfirmedPaymentEvent**  - Payment is made by user.
+1. **PayAccept\LaravelPaychain\Events\UnconfirmedPaymentEvent**  - Payment is made by user.
 Transaction id is generated on block chain, number of conifrmation on block chain  is 0 - so you have to wait for additional confirmations.
 
-2. **moki74\LaravelBtc\Events\ConfirmedPaymentEvent** - Payment is made and number of confirmations is equal or greater than value  of **BITCOIND_MIN_CONFIRMATIONS** in .env file.
+2. **PayAccept\LaravelPaychain\Events\ConfirmedPaymentEvent** - Payment is made and number of confirmations is equal or greater than value  of **PAYCHAIN_MIN_CONFIRMATIONS** in .env file.
 
 
-3. **moki74\LaravelBtc\Events\UnknownTransactionEvent** - Usually this happens when user make payment and transaction fee is deducted from amount that he sends from his wallet  and you don't receive whole amount. This payments are stored in separate table and you can make logic how to resolve situation like this. 
+3. **PayAccept\LaravelPaychain\Events\UnknownTransactionEvent** - Usually this happens when user make payment and transaction fee is deducted from amount that he sends from his wallet  and you don't receive whole amount. This payments are stored in separate table and you can make logic how to resolve situation like this. 
 
 
 ### Models
-**moki74\LaravelBtc\Models\Payment** - Represents Confirmed and Unconfirmed Payments (see Usage section)
+**PayAccept\LaravelPaychain\Models\Payment** - Represents Confirmed and Unconfirmed Payments (see Usage section)
 
-**moki74\LaravelBtc\Models\UnknownTransaction** - Represent transaction on block chain with amount that does not correspond to amount in Payment model.
+**PayAccept\LaravelPaychain\Models\UnknownTransaction** - Represent transaction on block chain with amount that does not correspond to amount in Payment model.
 
 ## License
 MIT License

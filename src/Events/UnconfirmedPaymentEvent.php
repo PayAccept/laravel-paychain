@@ -1,8 +1,8 @@
 <?php
 
-namespace moki74\LaravelBtc\Events;
+namespace PayAccept\LaravelPaychain\Events;
 
-use moki74\LaravelBtc\Models\Payment;
+use PayAccept\LaravelPaychain\Models\Payment;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 

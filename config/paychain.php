@@ -3,77 +3,77 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Bitcoind JSON-RPC Scheme
+    | Paychain JSON-RPC Scheme
     |--------------------------------------------------------------------------
-    | URI scheme of Bitcoin Core's JSON-RPC server.
+    | URI scheme of Paychain Core's JSON-RPC server.
     |
     | Use https to enable SSL connections with Core,
     | but this is strongly discouraged by developers.
     |
     */
 
-    'scheme' => env('BITCOIND_SCHEME', 'http'),
+    'scheme' => env('PAYCHAIN_SCHEME', 'http'),
 
     /*
     |--------------------------------------------------------------------------
-    | Bitcoind JSON-RPC Host
+    | Paychain JSON-RPC Host
     |--------------------------------------------------------------------------
     | Tells service provider which hostname or IP address
-    | Bitcoin Core is running at.
+    | Paychain Core is running at.
     |
-    | If Bitcoin Core is running on the same PC as
+    | If Paychain Core is running on the same PC as
     | laravel project use localhost or 127.0.0.1.
     |
-    | If you're running Bitcoin Core on the different PC,
+    | If you're running Paychain Core on the different PC,
     | you may also need to add rpcallowip=<server-ip-here> to your bitcoin.conf
     | file to allow connections from your laravel client.
     |
     */
 
-    'host' => env('BITCOIND_HOST', 'localhost'),
+    'host' => env('PAYCHAIN_HOST', 'localhost'),
 
     /*
     |--------------------------------------------------------------------------
-    | Bitcoind JSON-RPC Port
+    | Paychain JSON-RPC Port
     |--------------------------------------------------------------------------
-    | The port at which Bitcoin Core is listening for JSON-RPC connections.
+    | The port at which Paychain Core is listening for JSON-RPC connections.
     | Default is 8332 for mainnet and 18332 for testnet.
     | You can also directly specify port by adding rpcport=<port>
     | to bitcoin.conf file.
     |
     */
 
-    'port' => env('BITCOIND_PORT', 8332),
+    'port' => env('PAYCHAIN_PORT', 8555),
 
     /*
     |--------------------------------------------------------------------------
-    | Bitcoind JSON-RPC User
+    | Paychain JSON-RPC User
     |--------------------------------------------------------------------------
     | Username needs to be set exactly as in bitcoin.conf file
     | rpcuser=<username>.
     |
     */
 
-    'user' => env('BITCOIND_USER', ''),
+    'user' => env('PAYCHAIN_USER', ''),
 
     /*
     |--------------------------------------------------------------------------
-    | Bitcoind JSON-RPC Password
+    | Paychain JSON-RPC Password
     |--------------------------------------------------------------------------
     | Password needs to be set exactly as in bitcoin.conf file
     | rpcpassword=<password>.
     |
     */
 
-    'password' => env('BITCOIND_PASSWORD', ''),
+    'password' => env('PAYCHAIN_PASSWORD', ''),
 
     /*
     |--------------------------------------------------------------------------
-    | Bitcoind JSON-RPC Server CA
+    | Paychain JSON-RPC Server CA
     |--------------------------------------------------------------------------
-    | If you're using SSL (https) to connect to your Bitcoin Core
+    | If you're using SSL (https) to connect to your Paychain Core
     | you can specify custom ca package to verify against.
-    | Note that using Bitcoin JSON-RPC over SSL is strongly discouraged.
+    | Note that using Paychain JSON-RPC over SSL is strongly discouraged.
     |
     */
 
@@ -81,17 +81,17 @@ return [
 
      /*
     |--------------------------------------------------------------------------
-    | LaravelBtc  - this param is for minimum number of confirmations
+    | LaravelPaychain  - this param is for minimum number of confirmations
     |--------------------------------------------------------------------------
     | This is minimal number of confirmations that we need
     | to consider payment is safe.
     |
     */
 
-    'min-confirmations' => env('BITCOIND_MIN_CONFIRMATIONS', 3),
-    
-    'order-model' => env('BITCOIND_ORDER_MODEL', 'App\Order'),
-    
-    'user-model' => env('BITCOIND_USER_MODEL', 'App\User'),
+    'min-confirmations' => env('PAYCHAIN_MIN_CONFIRMATIONS', 3),
+
+    'order-model' => env('PAYCHAIN_ORDER_MODEL', 'App\Order'),
+
+    'user-model' => env('PAYCHAIN_USER_MODEL', 'App\User'),
 
 ];

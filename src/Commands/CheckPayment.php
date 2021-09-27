@@ -1,15 +1,14 @@
 <?php
 
-namespace moki74\LaravelBtc\Commands;
+namespace PayAccept\LaravelPaychain\Commands;
 
-use moki74\LaravelBtc\Bitcoind;
+use PayAccept\LaravelPaychain\PayChain;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
-use moki74\LaravelBtc\Events\ConfirmedPaymentEvent;
-use moki74\LaravelBtc\Events\UnconfirmedPaymentEvent;
-use moki74\LaravelBtc\Events\UnknownTransactionEvent;
-use moki74\LaravelBtc\Models\Payment;
-use moki74\LaravelBtc\Models\UnknownTransaction;
+use PayAccept\LaravelPaychain\Events\ConfirmedPaymentEvent;
+use PayAccept\LaravelPaychain\Events\UnconfirmedPaymentEvent;
+use PayAccept\LaravelPaychain\Events\UnknownTransactionEvent;
+use PayAccept\LaravelPaychain\Models\Payment;
+use PayAccept\LaravelPaychain\Models\UnknownTransaction;
 
 class CheckPayment extends Command
 {
@@ -19,14 +18,14 @@ class CheckPayment extends Command
      *
      * @var string
      */
-    protected $signature = 'bitcoin:checkpayment';
+    protected $signature = 'paychain:checkpayment';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Check for bitcoin payments';
+    protected $description = 'Check for paychain payments';
 
     /**
      * Create a new command instance.
@@ -43,16 +42,16 @@ class CheckPayment extends Command
      *
      * @return mixed
      */
-    public function handle(Bitcoind $bitcoind)
+    public function handle(PayChain $paychain)
     {
-        // $bitcoind = resolve("LaravelBtcClient");
-        $this->checkPayment($bitcoind);
+        // $paychain = resolve("LaravelBtcClient");
+        $this->checkPayment($paychain);
     }
 
-    private function checkPayment($bitcoind)
+    private function checkPayment($paychain)
     {
-        // get transaction from bitcoind
-        $transactions = $bitcoind->listtransactions('', 50);
+        // get transaction from paychain
+        $transactions = $paychain->listtransactions('', 50);
         if (!is_array($transactions)) {
             $transactions = $transactions->get();
         }
@@ -103,7 +102,7 @@ class CheckPayment extends Command
             if ($key !== false) {
                 $prepayment->confirmations = $transactions[$key]['confirmations'];
                 // if we have min confirmations, payment is confirmed
-                if ($prepayment->confirmations >= config('bitcoind.min-confirmations')) {
+                if ($prepayment->confirmations >= config('paychain.min-confirmations')) {
                     $prepayment->paid = 1;
                     event(new ConfirmedPaymentEvent($prepayment));
                 }

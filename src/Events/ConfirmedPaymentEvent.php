@@ -1,8 +1,8 @@
 <?php
 
-namespace moki74\LaravelBtc\Events;
+namespace PayAccept\LaravelPaychain\Events;
 
-use moki74\LaravelBtc\Models\Payment;
+use PayAccept\LaravelPaychain\Models\Payment;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
@@ -13,7 +13,7 @@ class ConfirmedPaymentEvent
     public $confirmedPayment;
 
     /**
-     * Fired when num of confirmations on block chain meet BITCOIND_MIN_CONFIRMATIONS in .env file.
+     * Fired when num of confirmations on block chain meet PAYCHAIN_MIN_CONFIRMATIONS in .env file.
      *
      * @param  Order  $order
      * @return void

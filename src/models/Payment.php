@@ -1,6 +1,6 @@
 <?php
 
-namespace moki74\LaravelBtc\Models;
+namespace PayAccept\LaravelPaychain\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,12 +8,12 @@ class Payment extends Model
 {
    public function order()
    {
-       return $this->belongsTo(config('bitcoind.order-model'));
+       return $this->belongsTo(config('paychain.order-model'));
    }
 
    public function user()
    {
-       return $this->belongsTo(config('bitcoind.user-model'));
+       return $this->belongsTo(config('paychain.user-model'));
    }
 
    public function scopeUnpaid($query)

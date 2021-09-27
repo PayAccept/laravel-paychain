@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use moki74\LaravelBtc\Events\UnconfirmedPaymentEvent;
+use PayAccept\LaravelPaychain\Events\UnconfirmedPaymentEvent;
 use Illuminate\Support\Facades\Log;
 
 class UnconfirmedPaymentListener
