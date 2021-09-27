@@ -2,7 +2,7 @@
 Package for receive payments via PayChain
 
 ## Prerequisites
-**Laravel version >= 5.5**
+**Laravel version >= 7.3**
 
 There is lot of docs about installing Laravel, not covered here ...
 
