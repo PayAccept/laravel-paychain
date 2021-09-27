@@ -1,5 +1,6 @@
-# laravel-btc
-Package for receive payments via BTC
+# laravel-paychain
+Package for receive payments via PayChain
+
 ## Prerequisites
 **Laravel version >= 5.5**
 
@@ -198,7 +199,3 @@ Transaction id is generated on block chain, number of conifrmation on block chai
 
 ## License
 MIT License
-
-To help this project grow, please make donation in bitcoin:
-
-**BTC address : 1D3PDXSQDjvyLXeMb34XR6UeCwZX7tcjXP**
