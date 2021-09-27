@@ -3,7 +3,7 @@
 namespace PayAccept\LaravelPaychain;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Database\Eloquent\Factory as EloquentFactory;
+//use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use PayAccept\LaravelPaychain\PayChain;
 
 class PayChainPaymentServiceProvider extends ServiceProvider
@@ -41,7 +41,7 @@ class PayChainPaymentServiceProvider extends ServiceProvider
             ]);
         }
 
-        $this->registerEloquentFactoriesFrom(__DIR__.'/factories');
+        //$this->registerEloquentFactoriesFrom(__DIR__.'/factories');
 
 
         $this->registerPaychain();
@@ -54,10 +54,10 @@ class PayChainPaymentServiceProvider extends ServiceProvider
      * @param  string $path [path to factory]
      * @return Illuminate\Database\Eloquent\Factory
      */
-    protected function registerEloquentFactoriesFrom($path)
-    {
-        $this->app->make(EloquentFactory::class)->load($path);
-    }
+    //protected function registerEloquentFactoriesFrom($path)
+    //{
+    //    $this->app->make(EloquentFactory::class)->load($path);
+    //}
 
     /**
      * @return \PayAccept\LaravelPaychain\PayChain object
