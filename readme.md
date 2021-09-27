@@ -39,7 +39,7 @@ You can change values in file directly, but most common way is to put values in 
 ```
 // Put this at the end of .env file
 PAYCHAIN_HOST=127.0.0.1 // change this with host of Paychain server
-PAYCHAIN_PORT=8332
+PAYCHAIN_PORT=8554
 PAYCHAIN_USER=rpcusername // change this with rpc user name from bitcoin config
 PAYCHAIN_PASSWORD=rpcuserpassword  //change this with rpc passord from bitcoin config
 PAYCHAIN_MIN_CONFIRMATIONS=3  // This is minimal number of confirmations - do some google about bitcoin confirmations if you not shure about this value
@@ -66,9 +66,7 @@ $paychain = app("PayAccept\LaravelPaychain\Paychain");
 and then call RPC method on object :
 
 ```
-$bitcoinaddress = $paychain->getnewaddress();
-// You can call any RPC method
-// see this url : https://en.bitcoin.it/wiki/Original_Paychain_client/API_calls_list
+$payaddress = $paychain->getnewaddress();
 ```
 You can  use just this object for simpler projects  ...
 
@@ -78,7 +76,7 @@ Again, use **app** helper function like this:
 ```
 $payment = app("PayAccept\LaravelPaychain\Models\Payment");
 //or
-$payment = app("bitcoinPayment");
+$payment = app("paychainPayment");
 
 ```
 
@@ -106,7 +104,7 @@ When order is made by user, you make new Payment object and populate its propert
 ```
 // Most likely you'll use code like this in some of your Controllers
 
-$payment = app("bitcoinPayment"); // new  bitcoin address is automatically generated
+$payment = app("paychainPayment"); 
 $payment->user_id = $user->id;
 $payment->amount = 0.05; // this is price for order or item
 $payment->save();

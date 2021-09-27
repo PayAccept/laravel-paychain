@@ -37,13 +37,13 @@ return [
     | Paychain JSON-RPC Port
     |--------------------------------------------------------------------------
     | The port at which Paychain Core is listening for JSON-RPC connections.
-    | Default is 8332 for mainnet and 18332 for testnet.
+    | Default is 8554 for mainnet and 18554 for testnet.
     | You can also directly specify port by adding rpcport=<port>
-    | to bitcoin.conf file.
+    | to paychain.conf file.
     |
     */
 
-    'port' => env('PAYCHAIN_PORT', 8555),
+    'port' => env('PAYCHAIN_PORT', 8554),
 
     /*
     |--------------------------------------------------------------------------
@@ -89,9 +89,7 @@ return [
     */
 
     'min-confirmations' => env('PAYCHAIN_MIN_CONFIRMATIONS', 3),
-
-    'order-model' => env('PAYCHAIN_ORDER_MODEL', 'App\Order'),
-
-    'user-model' => env('PAYCHAIN_USER_MODEL', 'App\User'),
+    'order-model'       => env('PAYCHAIN_ORDER_MODEL', 'App\Order'),
+    'user-model'        => env('PAYCHAIN_USER_MODEL', 'App\User'),
 
 ];
