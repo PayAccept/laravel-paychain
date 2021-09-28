@@ -4,7 +4,7 @@ namespace PayAccept\LaravelPaychain;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 //use Illuminate\Database\Eloquent\Factory as EloquentFactory;
-use PayAccept\LaravelPaychain\PayChain;
+use PayAccept\LaravelPaychain\Paychain;
 
 class PaychainPaymentServiceProvider extends ServiceProvider
 {
@@ -60,7 +60,7 @@ class PaychainPaymentServiceProvider extends ServiceProvider
     //}
 
     /**
-     * @return \PayAccept\LaravelPaychain\PayChain object
+     * @return \PayAccept\LaravelPaychain\Paychain object
      */
     protected function registerPaychain()
     {
@@ -68,7 +68,7 @@ class PaychainPaymentServiceProvider extends ServiceProvider
             return $this->resolvePaychain($app);
         });
 
-        $this->app->singleton('PayAccept\LaravelPaychain\PayChain', function ($app) {
+        $this->app->singleton('PayAccept\LaravelPaychain\Paychain', function ($app) {
             return $this->resolvePaychain($app);
         });
     }
@@ -76,11 +76,11 @@ class PaychainPaymentServiceProvider extends ServiceProvider
     /**
      *
      * @param App $app
-     * @return \PayAccept\LaravelPaychain\PayChain object
+     * @return \PayAccept\LaravelPaychain\Paychain object
      */
     private function resolvePaychain($app)
     {
-        return new \PayAccept\LaravelPaychain\PayChain(
+        return new \PayAccept\LaravelPaychain\Paychain(
             $app['config']->get('paychain.user'),
             $app['config']->get('paychain.password'),
             $app['config']->get('paychain.host', 'localhost'),

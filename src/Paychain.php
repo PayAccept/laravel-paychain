@@ -28,7 +28,7 @@ echo $paychain->status;
 */
 namespace PayAccept\LaravelPaychain;
 
-class PayChain
+class Paychain
 {
     // Configuration options
     public $username;

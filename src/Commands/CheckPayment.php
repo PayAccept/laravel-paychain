@@ -2,7 +2,7 @@
 
 namespace PayAccept\LaravelPaychain\Commands;
 
-use PayAccept\LaravelPaychain\PayChain;
+use PayAccept\LaravelPaychain\Paychain;
 use Illuminate\Console\Command;
 use PayAccept\LaravelPaychain\Events\ConfirmedPaymentEvent;
 use PayAccept\LaravelPaychain\Events\UnconfirmedPaymentEvent;
@@ -42,7 +42,7 @@ class CheckPayment extends Command
      *
      * @return mixed
      */
-    public function handle(PayChain $paychain)
+    public function handle(Paychain $paychain)
     {
         // $paychain = resolve("LaravelBtcClient");
         $this->checkPayment($paychain);
