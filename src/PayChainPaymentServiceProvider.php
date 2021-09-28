@@ -6,7 +6,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 //use Illuminate\Database\Eloquent\Factory as EloquentFactory;
 use PayAccept\LaravelPaychain\PayChain;
 
-class PayChainPaymentServiceProvider extends ServiceProvider
+class PaychainPaymentServiceProvider extends ServiceProvider
 {
 
     /**
@@ -93,7 +93,7 @@ class PayChainPaymentServiceProvider extends ServiceProvider
     */
     protected function registerPaychainPayment()
     {
-        $this->app->bind('bitcoinPayment', function ($app) {
+        $this->app->bind('paychainPayment', function ($app) {
             return $this->resolvePaychainPayment($app);
         });
 
