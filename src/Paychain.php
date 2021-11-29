@@ -132,7 +132,11 @@ class Paychain
         }
         if ($this->response['error']) {
             // If paychain returned an error, put that in $this->error
-            $this->error = $this->response['error']['message'];
+            if (array_key_exists("message", $this->response['error'])) {
+                $this->error = $this->response['error']['message'];
+            } else {
+                $this->error = json_encode($this->response['error']);
+            }
 
         } elseif ($this->status != 200) {
             // If paychain didn't return a nice error message, we need to make our own
