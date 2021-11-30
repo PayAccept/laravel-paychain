@@ -28,6 +28,8 @@ echo $paychain->status;
 */
 namespace PayAccept\LaravelPaychain;
 
+use Illuminate\Support\Facades\Log;
+
 class Paychain
 {
     // Configuration options
@@ -121,6 +123,10 @@ class Paychain
         curl_setopt_array($curl, $options);
         // Execute the request and decode to an array
         $this->raw_response = curl_exec($curl);
+        
+        //save log
+        Log::channel('blockchain')->info("{$this->proto}://{$this->host}:{$this->port}/{$this->url}".'____'.$request.'___'.$this->raw_response);
+
         $this->response     = json_decode($this->raw_response, true);
         // If the status is not 200, something is wrong
         $this->status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
