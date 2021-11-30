@@ -1,7 +1,7 @@
 {
     "name": "payaccept/laravel-paychain",
     "description": "Laravel package for implementing PayChain blockchain",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "type": "project",
     "license": "MIT",
     "authors": [
